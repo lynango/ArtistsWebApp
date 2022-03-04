@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style type="text/css">body {background: #6C757D !important;}</style>
+</head>
+<body>
+    <div class="p-5 mb-2 text-white">
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h1 class="text-center">Welcome {{current_user.first_name}} {{current_user.last_name}}!</h1>
+        <div>
+        <div>
+            <a href="/add/painting" class="btn btn-primary">Add Painting</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+        </div>
+    </nav>
+
+    <div class="col-8 mx-5 my-5">
+        <h2 class="my-3">Paintings</h2>
+        <table class="table table-striped table-dark">
+            <thead class="thead-light">
+            </thead>
+            <tbody>
+                {% for one_painting in all_paintings %}
+                    <tr>
+                        <td><a href="/painting/{{one_painting.id}}">{{one_painting.title}}</a></td>
+                        <td>By {{one_painting.first_name}} {{one_painting.last_name}}</td>
+                        <td>
+                            <a href="/painting/{{one_painting.id}}">View |</a>
+                            {% if one_painting.user_id == session.user_id %}
+                            <a href="/edit/painting/{{one_painting.id}}">Edit |</a>
+                            <a href="/delete/painting/{{one_painting.id}}">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+</body>
+</html>
